@@ -1,29 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
-  <title>API Fetch</title>
+  <title>Geek Market Lab</title>
 </head>
 <body>
-  <h1>Gerador de usuarios</h1>
-  <section id="usuarios-container" >
-    <button id="btn-usuario">Novo usuario</button>
-    <span class="helper-text" id="helper-text-usuario"></span>
-  </section>
-  <section>
-    <h2>Gerador de postagens</h2>
-    <div id="posts-container" ></div>
-    <form>
-      <label for="post-title">Titulo</label>
-      <input type="text" id="post-title" name="title" >
-      <label for="post-body">Postagem</label>
-      <textarea name="body" id="post-body" cols="30" rows="10" ></textarea>
-      <button id="btn-post">Enviar</button>
-      <span class="helper-text" id="helper-text-post"></span>
-    </form>
-  </section>
+  <header class="hero">
+    <div class="container hero__content">
+      <p class="eyebrow">API Fetch Playground</p>
+      <h1>Cadastre produtos e teste integracoes com APIs</h1>
+      <p class="lede">Prototype rapidamente fluxos de cadastro e publicacoes usando chamadas HTTP reais. Validacao, feedback ao usuario e estados de carregamento incluidos.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#produto">Cadastrar produto</a>
+        <a class="btn btn--ghost" href="#posts">Criar post</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout-grid">
+    <section id="produto" class="card">
+      <div class="card__header">
+        <p class="eyebrow">Fluxo principal</p>
+        <h2>Cadastro de produtos</h2>
+        <p>Envia um POST para https://httpbin.org/post com JSON contendo produto, valor e descricao. Mantem os valores se algo falhar e mostra o retorno na lista.</p>
+      </div>
+      <form id="product-form" class="stack" novalidate>
+        <div class="field">
+          <label for="product-name">Nome do produto</label>
+          <input type="text" id="product-name" name="produto" autocomplete="off" placeholder="Ex.: Console retro" required>
+          <small class="field__hint">Minimo 3 caracteres.</small>
+        </div>
+        <div class="field field--split">
+          <div>
+            <label for="product-price">Valor</label>
+            <input type="number" id="product-price" name="valor" min="1" step="0.01" placeholder="499.90" required>
+          </div>
+          <div>
+            <label for="product-category">Categoria</label>
+            <input type="text" id="product-category" name="categoria" autocomplete="off" placeholder="Colecionaveis">
+          </div>
+        </div>
+        <div class="field">
+          <label for="product-description">Descricao</label>
+          <textarea id="product-description" name="descricao" rows="4" placeholder="Conte o que torna este item especial." required></textarea>
+          <small class="field__hint">Seja direto e evite textos vazios.</small>
+        </div>
+        <div class="form__footer">
+          <button id="product-submit" class="btn btn--primary" type="submit">Enviar produto</button>
+          <p id="product-status" class="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <div class="list-header">
+        <p class="eyebrow">Retornos recentes</p>
+        <span class="badge" id="product-count">0 itens</span>
+      </div>
+      <div id="product-list" class="list-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="posts" class="card">
+      <div class="card__header">
+        <p class="eyebrow">Demo</p>
+        <h2>Gerador de postagens</h2>
+        <p>Envia um POST para jsonplaceholder.typicode.com e mostra o retorno imediatamente.</p>
+      </div>
+      <form id="post-form" class="stack" novalidate>
+        <div class="field">
+          <label for="post-title">Titulo</label>
+          <input type="text" id="post-title" name="title" placeholder="Chamada de lancamento" required>
+        </div>
+        <div class="field">
+          <label for="post-body">Postagem</label>
+          <textarea id="post-body" name="body" rows="4" placeholder="Escreva um paragrafo." required></textarea>
+        </div>
+        <div class="form__footer">
+          <button id="btn-post" class="btn btn--secondary" type="submit">Publicar</button>
+          <p id="helper-text-post" class="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <div id="posts-container" class="stack" aria-live="polite"></div>
+    </section>
+
+    <section id="usuarios" class="card">
+      <div class="card__header">
+        <p class="eyebrow">Utilitario</p>
+        <h2>Gerador de usuarios</h2>
+        <p>Consulta random-data-api.com e traz um perfil ficticio com avatar.</p>
+      </div>
+      <div class="actions-row">
+        <button id="btn-usuario" class="btn btn--ghost" type="button">Novo usuario</button>
+        <span id="helper-text-usuario" class="status" aria-live="polite"></span>
+      </div>
+      <div id="usuarios-container" class="list-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__content">
+      <p>Prototipo de integracoes REST para catalogo geek.</p>
+      <p class="muted">Sem backend proprio: chamadas diretas a HTTP Bin e JSONPlaceholder.</p>
+    </div>
+  </footer>
 </body>
 </html>
